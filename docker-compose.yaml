@@ -10,7 +10,9 @@ services:
    image: mysql:v1.0 #iamge name
    container_name : mysql #container_name which u want to be
    volumes:
-    - mysql:/var/lib/mysql     #docker -v volume-name:/path/in/container
+    - source : mysql
+      target : /var/lib/mysql 
+      type : volume    #docker -v volume-name:/path/in/container
  backend:
    image: backend:v1.0
    container_name : backend
