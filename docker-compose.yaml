@@ -1,0 +1,24 @@
+version: '3.9'
+name: expense-compose
+volumes:
+ mysql: # docker volume create mysql 
+networks:
+ default:
+  name : expense
+services:
+ mysql:
+   image: mysql:v1.0 #iamge name
+   container_name : mysql #container_name which u want to be
+   volumes:
+    - mysql:/var/lib/mysql     #docker -v volume-name:/path/in/container
+ backend:
+   image: backend:v1.0
+   container_name : backend
+   command: sh -c "sleep 20 && node /opt/server/index.js"
+   depends_on : mysql
+ frontend:
+   image: frontend:v1.0
+   container_name: frontend
+   ports:
+    - "80:80"
+   depends_on: backend    
